@@ -124,3 +124,25 @@ def get_sellability_report(melons):
             print(part_1 + " (CAN BE SOLD)")
         else:
             print(part_1 + " (NOT SELLABLE)")
+
+def get_harvest_log(filename):
+    f = open(filename)
+    melon_type_list = make_melon_types()
+    melon_dict = make_melon_type_lookup(melon_type_list)
+    melons = []
+    for line in f:
+        items = line.split()
+        shape_rating= int(items[1])
+        color_rating = int(items[3])
+        code = items[5]
+        harvester = items[8]
+        field = int(items[11])
+
+        melon_type_instance = melon_dict[code]
+        melon = Melon(melon_type_instance, shape_rating, color_rating, harvester, field)
+
+        melons.append(melon)
+    f.close()
+    return melons
+
+
